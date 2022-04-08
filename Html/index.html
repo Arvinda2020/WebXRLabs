@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <title>WebAR Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+  <div id="login_div" class="main-div">
+    <img src="../Images/ThreedyARstudio Logo.png" />
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+    <button onclick="login()">Login</button><br>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+            apiKey: "AIzaSyBkL4BSkJ2Rxf9U5-nvJ4W11fq6zyA33nM",
+            authDomain: "webar-studio-85e60.firebaseapp.com",
+            databaseURL: "https://webar-studio-85e60-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "webar-studio-85e60",
+            storageBucket: "webar-studio-85e60.appspot.com",
+            messagingSenderId: "557125165553",
+            appId: "1:557125165553:web:2eba342a0b035d9ed2e450",
+            measurementId: "G-J7D664JSK1"
+        };
+    firebase.initializeApp(config); 
+  </script>
+  <script src="../Js/index.js"></script>
+
+</body>
+
+</html>

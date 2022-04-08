@@ -366,12 +366,11 @@
                     {
                         myFile.src = snapshot.val().FileUrl;
                         var url = myFile.scr;
-                        console.log(name);
+
                         var params = new URLSearchParams();
                         params.append("url", myFile.src);
                         console.log(params.toString());       
                         var fetchUrl = "PublishModelview.html?" + params.toString();
-                        console.log(fetchUrl); 
                         location.href = fetchUrl;
                     }
                 });

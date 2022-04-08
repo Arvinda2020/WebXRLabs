@@ -69,13 +69,23 @@
                 AddItemToTable(SerialNo, element.ClientName, element.FileName, element.FileUrl);
                 url = element.FileUrl;
                 td4.onclick = function (url) {
-                    sessionStorage.setItem('ModelUrl', JSON.stringify(element.FileUrl));
-                    window.location.href = "../Html/PublishModelview.html";
+                    var params = new URLSearchParams();
+                        params.append("url", element.FileUrl);
+                        console.log(params.toString());       
+                        var fetchUrl = "PublishModelview.html?" + params.toString();
+                        location.href = fetchUrl;
+                    //sessionStorage.setItem('ModelUrl', JSON.stringify(element.FileUrl));
+                    //window.location.href = "../Html/PublishModelview.html";
                 };
                 td5.onclick = function(url)
                 {
-                    sessionStorage.setItem('ModelUrl', JSON.stringify(element.FileUrl));
-                    window.location.href = "../Html/PublishModelview.html";
+                    var params = new URLSearchParams();
+                        params.append("url", element.FileUrl);
+                        console.log(params.toString());       
+                        var fetchUrl = "PublishModelview.html?" + params.toString();
+                        location.href = fetchUrl;
+                    //sessionStorage.setItem('ModelUrl', JSON.stringify(element.FileUrl));
+                    //window.location.href = "../Html/PublishModelview.html";
                 }
 
             });

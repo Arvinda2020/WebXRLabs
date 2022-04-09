@@ -93,7 +93,7 @@
       width: fit-content;
       height: fit-content;
       bottom: 10px;
-      right: 15px;
+      left: 15px;
 
     }
 
@@ -170,10 +170,10 @@
     var arBtn = document.getElementById("QrButton");
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-      arBtn.style.display = "block";
+      arBtn.style.display = "none";
     }
     else {
-      arBtn.style.display = "none";
+      arBtn.style.display = "block";
     }
 
     var params = new URLSearchParams(window.location.search),

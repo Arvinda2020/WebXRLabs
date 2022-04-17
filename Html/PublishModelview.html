@@ -94,7 +94,7 @@
       height: fit-content;
       bottom: 10px;
       align-content: center;
-      left: 45%;
+      left: 50%;
 
     }
 
@@ -156,8 +156,10 @@
   </script>
   <model-viewer bounds="tight" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1">
-    <div class="progress-bar hide" slot="progress-bar">
-      <div class="update-bar"></div>
+    <div class="progress-bar" slot="progress-bar">
+      <div class="update-bar" style="width: 100%;
+      height: 5px;
+      "></div>
       <label class="marker" id="marker"></label>
     </div>
     <button slot="ar-button" class="arAnchor" id="ar-button">

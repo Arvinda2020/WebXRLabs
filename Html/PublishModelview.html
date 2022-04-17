@@ -93,7 +93,7 @@
       width: fit-content;
       height: fit-content;
       bottom: 10px;
-      right: 15px;
+      left: -15px;
 
     }
 
@@ -155,7 +155,7 @@
   </script>
   <model-viewer bounds="tight" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1">
-    <div class="progress-bar" slot="progress-bar">
+    <div class="progress-bar hide" slot="progress-bar">
       <div class="update-bar"></div>
       <label class="marker" id="marker"></label>
     </div>
@@ -169,9 +169,10 @@
   <script>
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var isMobile = /iPhone|webOS|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-      arBtn.style.display = "none";
+      qrBtn.style.display = "none";
+      arBtn.style.display = "block";
     }
     else {
       qrBtn.style.display = "block";

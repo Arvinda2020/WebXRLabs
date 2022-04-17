@@ -162,28 +162,32 @@
     <button slot="ar-button" class="arAnchor" id="ar-button">
       View in your space
     </button>
+    <button class="QrBtn" id="QrButton" onclick="PopUp()"> View in your space</button>
   </model-viewer>
-  <button class="QrBtn" id="QrButton" onclick="PopUp()"> View in your space</button>
 
 
   <script>
-    var arBtn = document.getElementById("QrButton");
+    var qrBtn = document.getElementById("QrButton");
+    var arBtn = document.getElementById("ar-button");
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
       arBtn.style.display = "none";
     }
     else {
-      arBtn.style.display = "block";
+      qrBtn.style.display = "block";
+      arBtn.style.display = "none";
     }
 
-    var params = new URLSearchParams(window.location.search),
+    var params = new URLSearchParams(window.location.search);
     url = params.get("url");
-    console.log(url);
+    encodeURIComponent(url);
+    var shareAbleUrl = window.location.href+ url;
+    console.log(shareAbleUrl);
+
 
     var modelViewer = document.querySelector("model-viewer");
-    var modelSrc = sessionStorage.getItem("ModelUrl");
-    var model = JSON.parse(modelSrc);
     modelViewer.src = url;
+    
     var logoMark = localStorage.getItem("WaterMark");
     var logo = JSON.parse(logoMark);
     var marker = document.getElementById("marker");

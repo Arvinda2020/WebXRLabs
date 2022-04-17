@@ -332,15 +332,9 @@
             var ext = extlab.innerHTML;
 
             var dbRef = ref(realdb);
-            console.log(clientName);
-
             get(child(dbRef, "webAR/" + clientName + "/" + ext + "/" + name)).then((snapshot) => {
                 if (snapshot.exists()) {
                     myFile.src = snapshot.val().FileUrl;
-                    console.log(myFile.src);
-                    sessionStorage.setItem('ModelUrl', JSON.stringify(myFile.src));
-                          
-                        
                 }
             })
 

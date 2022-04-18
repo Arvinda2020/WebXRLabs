@@ -227,20 +227,19 @@
         scaleFixed.onclick = function () {
             if (this.checked) {
                 scale = "true";
-                localStorage.setItem('scaleValue', JSON.stringify(scale));
+                
             }
             else {
                 scale = "false";
-                localStorage.setItem('scaleValue', JSON.stringify(scale));
+                
 
             }
         }
 
         waterMark.onclick = function () {
             if (this.checked) {
-                ink = "ThreedyAR";
+                ink = "Powered by ThreedyAR";
                 localStorage.setItem('WaterMark', JSON.stringify(ink));
-                console.log(ink);
             }
             else {
                 ink = "";

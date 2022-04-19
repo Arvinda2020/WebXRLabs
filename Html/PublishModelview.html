@@ -186,7 +186,7 @@
     } else if (isTablet) {
       console.log("Tablet");
     }
-    if (isMobile && isTablet) {
+    if (isMobile || isTablet) {
       console.log("mobile");
       qrBtn.style.display = "none";
       arBtn.style.display = "block";

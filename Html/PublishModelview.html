@@ -77,7 +77,7 @@
       width: fit-content;
       height: fit-content;
       bottom: 10px;
-      right:15px;
+      right: 15px;
     }
 
     .arAnchor {
@@ -172,31 +172,35 @@
   <script>
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
-    
+
     var isMobile = {
-    Android: function() {
+      Android: function () {
         return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
+      },
+      BlackBerry: function () {
         return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
+      },
+      iOS: function () {
         return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
+      },
+      Opera: function () {
         return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
+      },
+      Windows: function () {
         return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
+      },
+      any: function () {
         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};    if (isMobile) {
+      }
+    };
+
+    if (isMobile) {
+      console.log("mobile");
       qrBtn.style.display = "none";
       arBtn.style.display = "block";
     }
     else {
+      console.log("desktop");
       qrBtn.style.display = "block";
       arBtn.style.display = "none";
     }
@@ -204,13 +208,13 @@
     var params = new URLSearchParams(window.location.search);
     url = params.get("url");
     encodeURIComponent(url);
-    var shareAbleUrl = window.location.href+ url;
+    var shareAbleUrl = window.location.href + url;
     console.log(shareAbleUrl);
 
 
     var modelViewer = document.querySelector("model-viewer");
     modelViewer.src = url;
-    
+
     var logoMark = localStorage.getItem("WaterMark");
     var logo = JSON.parse(logoMark);
     var marker = document.getElementById("marker");

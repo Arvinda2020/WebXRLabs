@@ -239,7 +239,7 @@
         waterMark.onclick = function () {
             if (this.checked) {
                 ink = "Powered by ThreedyAR";
-                localStorage.setItem('WaterMark', JSON.stringify(ink));
+                sessionStorage.setItem('WaterMark', JSON.stringify(ink));
             }
             else {
                 ink = "";
@@ -275,9 +275,6 @@
                 () => {
                     getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
                         SaveURLtoRealtimeDB(downloadURL, fileName, extension);
-                        console.log(downloadURL);
-                        sessionStorage.setItem('ModelUrl', JSON.stringify(downloadURL));
-                       
                         
                     });
                 }
@@ -347,12 +344,11 @@
         publish.onclick = PublishModel;
 
         function PublishModel() {
-            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            var isMobile = /iPhone|ipad|iPod|Android/i.test(navigator.userAgent);
             if (!isMobile) {
                 var name = glbFileName;
                 var clientName = ClientNameBox.value;
                 var dbRef = ref(realdb);
-                console.log(name);
                 
                 get(child(dbRef, "webAR/" + clientName + "/glb/" + glbFileName)).then((snapshot) => {
                     if (snapshot.exists()) 

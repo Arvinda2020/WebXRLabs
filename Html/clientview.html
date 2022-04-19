@@ -81,20 +81,20 @@
 
 
 
-            
+
             trow.appendChild(td1);
             trow.appendChild(td2);
-            
+
             var isMobile = /iPhone|ipad|iPod|Android/i.test(navigator.userAgent);
             var element = document.getElementById('text');
             if (isMobile) {
                 trow.appendChild(glbbtn);
                 trow.appendChild(usdzbtn);
-                
+
             } else {
                 trow.appendChild(glbbtn);
             }
-            
+
             trow.appendChild(deleteclientbtn);
 
             tbody.appendChild(trow);
@@ -117,14 +117,13 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyBkL4BSkJ2Rxf9U5-nvJ4W11fq6zyA33nM",
-            authDomain: "webar-studio-85e60.firebaseapp.com",
-            databaseURL: "https://webar-studio-85e60-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "webar-studio-85e60",
-            storageBucket: "webar-studio-85e60.appspot.com",
-            messagingSenderId: "557125165553",
-            appId: "1:557125165553:web:2eba342a0b035d9ed2e450",
-            measurementId: "G-J7D664JSK1"
+            apiKey: "AIzaSyB4KAmZ9NwlFE8l3Dw7pWaC_IdTXDes2yU",
+            authDomain: "webar-viewer.firebaseapp.com",
+            databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
+            projectId: "webar-viewer",
+            storageBucket: "webar-viewer.appspot.com",
+            messagingSenderId: "667103121502",
+            appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
         };
 
         // Initialize Firebase

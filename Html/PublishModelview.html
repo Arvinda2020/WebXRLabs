@@ -175,7 +175,7 @@
 
     const userAgent = navigator.userAgent.toLowerCase();
 
-    var isMobile = /iPhone|Android/i.test(navigator.userAgent);
+    var isMobile = /iPhone|Android/i.test(window.navigator.userAgent);
     console.log(isMobile);
 
     const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);

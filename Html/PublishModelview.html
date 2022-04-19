@@ -172,8 +172,8 @@
   <script>
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile && navigator.userAgent.match(/safari/i)) {
+    var isMobile = /iPhone|ipad|iPod|safari|Android/i.test(navigator.userAgent);
+    if (isMobile) {
       qrBtn.style.display = "none";
       arBtn.style.display = "block";
     }

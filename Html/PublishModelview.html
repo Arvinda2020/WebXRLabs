@@ -173,7 +173,7 @@
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
+    if (isMobile && navigator.userAgent.match(/safari/i)) {
       qrBtn.style.display = "none";
       arBtn.style.display = "block";
     }

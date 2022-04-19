@@ -173,12 +173,20 @@
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
 
-    const ua = window.navigator.userAgent.toLowerCase();
+    const userAgent = window.navigator.userAgent.toLowerCase();
 
-    var isMobile = ua.indexOf('iPad') > -1 || ua.indexOf('iPhone') > -1 || ua.indexOf('android') > -1
-    ua.indexOf('macintosh') > -1
+    var isMobile = /iPhone|Android/i.test(userAgent);
+    console.log(isMobile);
+
+    const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+    console.log(isTablet)
 
     if (isMobile) {
+      console.log("Mobile");
+    } else if (isTablet) {
+      console.log("Tablet");
+    }
+    if (isMobile || isTablet) {
       console.log("mobile");
       qrBtn.style.display = "none";
       arBtn.style.display = "block";

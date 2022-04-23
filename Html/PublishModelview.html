@@ -169,7 +169,33 @@
   </model-viewer>
 
 
-  <script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB4KAmZ9NwlFE8l3Dw7pWaC_IdTXDes2yU",
+      authDomain: "webar-viewer.firebaseapp.com",
+      databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
+      projectId: "webar-viewer",
+      storageBucket: "webar-viewer.appspot.com",
+      messagingSenderId: "667103121502",
+      appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Firebase Realtime database
+    import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL }
+      from "https://www.gstatic.com/firebasejs/9.3.0/firebase-storage.js"
+
+    // Firebase Realtime database
+    import { getDatabase, ref, set, child, get, update, remove }
+      from "https://www.gstatic.com/firebasejs/9.3.0/firebase-database.js";
+    const realdb = getDatabase();
+
+
     var qrBtn = document.getElementById("QrButton");
     var arBtn = document.getElementById("ar-button");
 
@@ -198,20 +224,42 @@
     }
 
     var params = new URLSearchParams(window.location.search);
-    url = params.get("url");
-    encodeURIComponent(url);
-    var shareAbleUrl = window.location.href + url;
-    console.log(shareAbleUrl);
+    var subUrl = JSON.parse(params.get("subUrl"));
+    console.log(subUrl);
+    var shareAbleUrl = window.location.href + subUrl;
+    var scaleFactor = subUrl[0];
+    var waterMark = subUrl[1];
+    var fileName = subUrl[3];
+    console.log(fileName);
+    var clientName = subUrl[2];
+    console.log(clientName);
+    var ext = subUrl[4];
 
+    var dbRef = ref(realdb);
+    var url;
 
     var modelViewer = document.querySelector("model-viewer");
-    modelViewer.src = url;
+    get(child(dbRef, "webAR/" + clientName + ext + fileName)).then((snapshot) => {
+      if (snapshot.exists()) { 
+        url = snapshot.val().FileUrl;
+        modelViewer.src = url;
+        var iosUrl = document.querySelector("model-viewer ios-src");
+      }
+    });
 
-    var logoMark = localStorage.getItem("WaterMark");
-    var logo = JSON.parse(logoMark);
+    var scale = document.querySelector("model-viewer ar-scale");
+    if(scaleFactor =="true")
+    {
+      scale = "fixed";
+    }
+    else
+    {
+      scale = "auto";
+    }
+
     var marker = document.getElementById("marker");
-    marker.textContent = logo;
-    if (logo != "") {
+    marker.textContent = waterMark;
+    if (waterMark != "") {
       marker.style.display = "block";
     }
     else {

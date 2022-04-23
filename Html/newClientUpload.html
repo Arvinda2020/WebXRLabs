@@ -205,7 +205,9 @@
         var uploadBar = document.getElementById('upload');
         var waterMark = document.getElementById('WaterMark');
         var scaleFixed = document.getElementById('Scale');
-        
+        var waterMarker = new URLSearchParams() ;
+        var subUrl = [];
+
         let files = [];
         var ink;
         var scale;
@@ -226,22 +228,24 @@
         scaleFixed.onclick = function () {
             if (this.checked) {
                 scale = "true";
+                subUrl.push(scale);
                 
             }
             else {
                 scale = "false";
+                subUrl.push(scale);
                 
-
             }
         }
 
         waterMark.onclick = function () {
             if (this.checked) {
                 ink = "Powered by ThreedyAR";
-                sessionStorage.setItem('WaterMark', JSON.stringify(ink));
+                subUrl.push(ink);
             }
             else {
                 ink = "";
+                subUrl.push(ink);
 
             }
         }
@@ -340,31 +344,71 @@
             return !(regex.test(namebox.value));
         }
 
-        publish.onclick = PublishModel;
-
-        function PublishModel() {
-            var isMobile = /iPhone|ipad|iPod|Android/i.test(navigator.userAgent);
-            if (!isMobile) {
-                var name = glbFileName;
-                var clientName = ClientNameBox.value;
-                var dbRef = ref(realdb);
-                
-                get(child(dbRef, "webAR/" + clientName + "/glb/" + glbFileName)).then((snapshot) => {
-                    if (snapshot.exists()) 
-                    {
-                        myFile.src = snapshot.val().FileUrl;
-                        var url = myFile.scr;
-
-                        var params = new URLSearchParams();
-                        params.append("url", myFile.src);
-                        console.log(params.toString());       
-                        var fetchUrl = "PublishModelview.html?" + params.toString();
-                        location.href = fetchUrl;
-                    }
-                });
+        publish.onclick = PublishData;
+       
+        function PublishData()
+        {
+            var filename = glbFileName;
+            var clientName = ClientNameBox.value;
+            subUrl.push(clientName);
+            subUrl.push(glbFileName);
+            var android = /Android/i.test(navigator.userAgent);
+            var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            var ext;
+            if(android)
+            {
+                ext = "/glb/";
             }
-            
+            else if(iPhone)
+            {
+                ext ="/usdz/";
+            }
+            else
+            {
+                ext ="/glb/";
+            }
+            subUrl.push(ext);
+
+            var url = new URLSearchParams();
+            url.append("subUrl",JSON.stringify(subUrl));
+
+
+            // var fileName = new URLSearchParams();
+            // fileName.append("filename",glbFileName);
+            // var client = new URLSearchParams();
+            // client.append("clientName",ClientNameBox.value);
+            // var mode = new URLSearchParams();
+            // mode.append("ext",ext);
+            //var fetchUrl = "PublishModelview.html?" + client.toString()+fileName.toString()+mode.toString()+waterMarker.toString();
+            var fetchUrl = "PublishModelview.html?"+url.toString(); 
+            location.href = fetchUrl;
+
         }
+
+
+        // function PublishModel() {
+        //     var isMobile = /iPhone|ipad|iPod|Android/i.test(navigator.userAgent);
+        //     if (!isMobile) {
+        //         var name = glbFileName;
+        //         var clientName = ClientNameBox.value;
+        //         var dbRef = ref(realdb);
+                
+        //         get(child(dbRef, "webAR/" + clientName + "/glb/" + glbFileName)).then((snapshot) => {
+        //             if (snapshot.exists()) 
+        //             {
+        //                 var myFile;
+        //                 myFile.src = snapshot.val().FileUrl;
+        //                 var url = myFile.scr;
+
+        //                 var params = new URLSearchParams();
+        //                 params.append("url", myFile.src);      
+        //                 var fetchUrl = "PublishModelview.html?" + params.toString();
+        //                 location.href = fetchUrl;
+        //             }
+        //         });
+        //     }
+            
+        // }
 
 
         //choose client from dropdown

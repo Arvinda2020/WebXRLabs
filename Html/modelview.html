@@ -61,27 +61,43 @@
             localStorage.setItem("ClientName", JSON.stringify(ClientName))
             window.location.href = "../Html/PublishModelview.html";
         }
+        
 
         function AddAllItemsToTable(Page2Array) {
             SerialNo = 0;
             tbody.innerHTML = "";
             Page2Array.forEach(element => {
                 AddItemToTable(SerialNo, element.ClientName, element.FileName, element.FileUrl);
-                url = element.FileUrl;
-                td4.onclick = function (url) {
-                    var params = new URLSearchParams();
-                        params.append("url", element.FileUrl);
-                        console.log(params.toString());       
-                        var fetchUrl = "PublishModelview.html?" + params.toString();
+                var subUrl = [];
+                var fileName = element.FileName;
+                var newFileName = fileName.split('.');
+                
+                //var ext = GetFileExt(element.fileName);
+                subUrl.push("true");
+                subUrl.push("Powerd by ThreedyAR");
+                subUrl.push(element.ClientName);
+                subUrl.push(newFileName[0]);
+                subUrl.push("/"+newFileName[1]+"/");
+
+                var url = new URLSearchParams();
+                url.append("subUrl",JSON.stringify(subUrl));
+                td4.onclick = function () {
+
+                    // var params = new URLSearchParams();
+                    //     params.append("url", element.FileUrl);
+                    //     console.log(params.toString()); 
+                        var url = new URLSearchParams();
+                        url.append("subUrl",JSON.stringify(subUrl));      
+                        var fetchUrl = "PublishModelview.html?" + url.toString();
                         location.href = fetchUrl;
                  };
                 td5.onclick = function(url)
                 {
-                    var params = new URLSearchParams();
-                        params.append("url", element.FileUrl);
-                        console.log(params.toString());       
-                        var fetchUrl = "PublishModelview.html?" + params.toString();
-                        location.href = fetchUrl;
+                    // var params = new URLSearchParams();
+                    //     params.append("url", element.FileUrl);
+                    //     console.log(params.toString());       
+                    //     var fetchUrl = "PublishModelview.html?" + params.toString();
+                    //     location.href = fetchUrl;
                 }
 
             });

@@ -101,6 +101,17 @@
 
 
         }
+        function GetFileExt(file) {
+            var temp = file.name.split('.');
+            var ext = temp.slice((temp.length - 1), (temp.length));
+            console.log(ext);
+            return ext[0];
+        }
+        function GetFileName(file) {
+            var temp = file.name.split('.');
+            var fname = temp.slice(0, -1).join('.');
+            return fname;
+        }
 
         let clientList = [];
         function AddAllItemsToTable(ClientData) {

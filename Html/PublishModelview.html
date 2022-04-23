@@ -165,7 +165,7 @@
     <button slot="ar-button" class="arAnchor" id="ar-button">
       View in your space
     </button>
-    <button class="QrBtn" id="QrButton" onclick="PopUp()"> View in your space</button>
+    <button class="QrBtn" id="QrButton">View in your space</button>
   </model-viewer>
 
 
@@ -276,6 +276,7 @@
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
     const qr = new QRCode(qrcode);
+    qrBtn.onclick = PopUp;
     // When the user clicks the button, open the modal 
     function PopUp() {
       modal.style.display = "block";

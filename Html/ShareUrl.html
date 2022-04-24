@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        width: 80%;
+        height: 100vh;
+        margin: auto;
+        display: grid;
+        background-image: url("../Images/BG Svg.svg");
+        background-size: cover;
+        place-items: center;
+    }
+    
+    h1 {
+        font-family: sans-serif;
+    }
+    </style>
+</head>
+<body>
+  <h1>Shareable link</h1>
+  <div class="qrcode" id="qrcode">
+  </div>
+   <pre>
+       <div id="code">
+        &lt;script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"&gt; &lt;/script&gt;
+        &lt;model-viewer bounds="tight" src="" ios-src="" 
+            ar-scale ="auto" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
+            environment-image="neutral" shadow-intensity="1"&gt;
+            &lt;/model-viewer&gt;
+       </div>
+   </pre>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script type="module">
+        const qr = new QRCode(qrcode);
+        var params = new URLSearchParams(window.location.search);
+        var subUrl = JSON.parse(params.get("subUrl"));
+
+
+        var urlLink = new URLSearchParams();
+        urlLink.append("subUrl",JSON.stringify(subUrl));
+
+        var shareableUrl = location.href+"PublishModelview.html?"+ urlLink.toString();
+        //location.href = shareableUrl; 
+        qr.makeCode(shareableUrl);
+  </script>
+</body>
+</html>

@@ -93,6 +93,10 @@
                  };
                 td5.onclick = function(url)
                 {
+                    var url = new URLSearchParams();
+                        url.append("subUrl",JSON.stringify(subUrl));      
+                        var fetchUrl = "ShareUrl.html?" + url.toString();
+                        location.href = fetchUrl;
                     // var params = new URLSearchParams();
                     //     params.append("url", element.FileUrl);
                     //     console.log(params.toString());       

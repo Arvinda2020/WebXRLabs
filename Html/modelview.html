@@ -61,47 +61,47 @@
             localStorage.setItem("ClientName", JSON.stringify(ClientName))
             window.location.href = "../Html/PublishModelview.html";
         }
-        
+
 
         function AddAllItemsToTable(Page2Array) {
             SerialNo = 0;
             tbody.innerHTML = "";
             Page2Array.forEach(element => {
                 AddItemToTable(SerialNo, element.ClientName, element.FileName, element.FileUrl);
-                var subUrl = [];
+                var subUrl;
                 var fileName = element.FileName;
                 var newFileName = fileName.split('.');
-                
-                //var ext = GetFileExt(element.fileName);
-                subUrl.push("true");
-                subUrl.push("Powerd by ThreedyAR");
-                subUrl.push(element.ClientName);
-                subUrl.push(newFileName[0]);
-                subUrl.push("/"+newFileName[1]+"/");
 
-                var url = new URLSearchParams();
-                url.append("subUrl",JSON.stringify(subUrl));
+
+                var clientName = element.ClientName;
+                var glbFileName = newFileName[0];
+                var ext = "/"+newFileName[1]+"/";
+                var scale = "true";
+                var ink = "Powerd by ThreedyAR";
+                //var ext = GetFileExt(element.fileName);
+                var data = {
+                    scale,
+                    ink,
+                    clientName,
+                    glbFileName,
+                    ext
+                };
+
+                subUrl = JSON.stringify(data);
+
+
                 td4.onclick = function () {
 
-                    // var params = new URLSearchParams();
-                    //     params.append("url", element.FileUrl);
-                    //     console.log(params.toString()); 
-                        var url = new URLSearchParams();
-                        url.append("subUrl",JSON.stringify(subUrl));      
-                        var fetchUrl = "PublishModelview.html?" + url.toString();
-                        location.href = fetchUrl;
-                 };
-                td5.onclick = function(url)
-                {
                     var url = new URLSearchParams();
-                        url.append("subUrl",JSON.stringify(subUrl));      
-                        var fetchUrl = "ShareUrl.html?" + url.toString();
-                        location.href = fetchUrl;
-                    // var params = new URLSearchParams();
-                    //     params.append("url", element.FileUrl);
-                    //     console.log(params.toString());       
-                    //     var fetchUrl = "PublishModelview.html?" + params.toString();
-                    //     location.href = fetchUrl;
+                    url.append("subUrl", subUrl);
+                    var fetchUrl = "PublishModelview.html?" + url.toString();
+                    location.href = fetchUrl;
+                };
+                td5.onclick = function (url) {
+                    var url = new URLSearchParams();
+                    url.append("subUrl", subUrl);
+                    var fetchUrl = "ShareUrl.html?" + url.toString();
+                    location.href = fetchUrl;
                 }
 
             });
@@ -119,12 +119,12 @@
 
         const firebaseConfig = {
             apiKey: "AIzaSyB4KAmZ9NwlFE8l3Dw7pWaC_IdTXDes2yU",
-    authDomain: "webar-viewer.firebaseapp.com",
-    databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
-    projectId: "webar-viewer",
-    storageBucket: "webar-viewer.appspot.com",
-    messagingSenderId: "667103121502",
-    appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
+            authDomain: "webar-viewer.firebaseapp.com",
+            databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
+            projectId: "webar-viewer",
+            storageBucket: "webar-viewer.appspot.com",
+            messagingSenderId: "667103121502",
+            appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
         };
 
         // Initialize Firebase

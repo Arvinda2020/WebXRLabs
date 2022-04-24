@@ -232,7 +232,7 @@
         var icong = document.getElementById("icong");
         var iconu = document.getElementById("iconu");
         var waterMarker = new URLSearchParams() ;
-        var subUrl = [];
+        var data;
 
         let files = [];
         var ink;
@@ -243,15 +243,20 @@
         var usdzFileName;
 
 
-
-       
-
         glb.onchange = e => {
             files = e.target.files;
             var ext = GetFileExt(files[0]);
             glbFileToUpload = files[0];
             glbFileName = GetFileName(files[0]);
-            UploadProcess(glbFileToUpload, glbFileName, ext);
+            if(ClientNameBox.value == "")
+            {
+                alert("select/Enter the Clinet Name");
+                return;
+            }
+            else
+            {
+                UploadProcess(glbFileToUpload, glbFileName, ext);
+            }
            // icong.style.visibility = "visible";
         };
 
@@ -259,12 +264,12 @@
         scaleFixed.onclick = function () {
             if (this.checked) {
                 scale = "true";
-                subUrl.push(scale);
+                //subUrl.push(scale);
                 
             }
             else {
                 scale = "false";
-                subUrl.push(scale);
+                //subUrl.push(scale);
                 
             }
         }
@@ -272,11 +277,11 @@
         waterMark.onclick = function () {
             if (this.checked) {
                 ink = "Powered by ThreedyAR";
-                subUrl.push(ink);
+               // subUrl.push(ink);
             }
             else {
                 ink = "";
-                subUrl.push(ink);
+                //subUrl.push(ink);
 
             }
         }
@@ -338,7 +343,18 @@
             var ext = GetFileExt(files[0]);
             usdzFileToUpload = files[0];
             usdzFileName = GetFileName(files[0]);
-            UploadProcess(usdzFileToUpload, usdzFileName, ext);
+
+            if(ClientNameBox.value == "")
+            {
+                alert("select/Enter the Clinet Name");
+                return;
+            }
+            else
+            {
+                UploadProcess(usdzFileToUpload, usdzFileName, ext);
+            }
+
+            
             //iconu.style.visibility = "visible";
 
         };
@@ -395,13 +411,14 @@
         }
 
         publish.onclick = PublishData;
-       
-        function PublishData()
+
+
+        function SetUrlData()
         {
+
             var filename = glbFileName;
             var clientName = ClientNameBox.value;
-            subUrl.push(clientName);
-            subUrl.push(glbFileName);
+
             var android = /Android/i.test(navigator.userAgent);
             var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             var ext;
@@ -417,10 +434,43 @@
             {
                 ext ="/glb/";
             }
-            subUrl.push(ext);
 
+            data = {
+                scale,
+                ink,
+                clientName,
+                glbFileName,
+                ext
+            };
+           
+
+        }
+       
+        function PublishData()
+        {
+            var filename = glbFileName;
+            var clientName = ClientNameBox.value;
+
+            var android = /Android/i.test(navigator.userAgent);
+            var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            var ext;
+            if(android)
+            {
+                ext = "/glb/";
+            }
+            else if(iPhone)
+            {
+                ext ="/usdz/";
+            }
+            else
+            {
+                ext ="/glb/";
+            }
+            SetUrlData();
+            var subUrl = JSON.stringify(data);
+            
             var url = new URLSearchParams();
-            url.append("subUrl",JSON.stringify(subUrl));
+            url.append("subUrl",subUrl);
 
 
             // var fileName = new URLSearchParams();

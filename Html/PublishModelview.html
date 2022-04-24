@@ -154,7 +154,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
-  <model-viewer bounds="tight" ios-src="" ar-scale ="auto" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
+  <model-viewer bounds="tight" ios-src="" ar-scale ="auto" 
+    autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1">
     <div class="progress-bar" slot="progress-bar">
       <div class="update-bar" style="width: 100%;
@@ -225,15 +226,14 @@
 
     var params = new URLSearchParams(window.location.search);
     var subUrl = JSON.parse(params.get("subUrl"));
-    console.log(subUrl);
+    
     var shareAbleUrl = window.location.href + subUrl;
-    var scaleFactor = subUrl[0];
-    var waterMark = subUrl[1];
-    var fileName = subUrl[3];
-    console.log(fileName);
-    var clientName = subUrl[2];
-    console.log(clientName);
-    var ext = subUrl[4];
+    var scale = subUrl.scale;
+    var waterMark = subUrl.ink;
+    var clientName = subUrl.clientName;
+    var fileName = subUrl.glbFileName;
+    var ext = subUrl.ext;
+    console.log(subUrl.ink);
 
     var dbRef = ref(realdb);
     var url;
@@ -247,14 +247,14 @@
       }
     });
 
-    var scale = document.querySelector("model-viewer ar-scale");
-    if(scaleFactor =="true")
+    var scales = document.querySelector("model-viewer ar-scale");
+    if(scale =="true")
     {
-      scale = "fixed";
+      scales = "fixed";
     }
     else
     {
-      scale = "auto";
+      scales = "auto";
     }
 
     var marker = document.getElementById("marker");

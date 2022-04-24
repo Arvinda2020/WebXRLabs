@@ -44,14 +44,9 @@
         const qr = new QRCode(qrcode);
         var params = new URLSearchParams(window.location.search);
         var subUrl = JSON.parse(params.get("subUrl"));
-
-
         var urlLink = new URLSearchParams();
         urlLink.append("subUrl",JSON.stringify(subUrl));
-
         var shareableUrl = "https://arvinda2020.github.io/WebXRLabs/Html/"+"PublishModelview.html?"+ urlLink.toString();
-        console.log(shareableUrl);
-
         qr.makeCode(shareableUrl);
   </script>
 </body>

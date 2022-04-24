@@ -49,8 +49,8 @@
         var urlLink = new URLSearchParams();
         urlLink.append("subUrl",JSON.stringify(subUrl));
 
-        var shareableUrl = "PublishModelview.html?"+ urlLink.toString();
-        location.href = shareableUrl; 
+        var shareableUrl = window.location+"PublishModelview.html?"+ urlLink.toString();
+
         qr.makeCode(shareableUrl);
   </script>
 </body>

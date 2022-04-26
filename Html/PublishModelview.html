@@ -233,7 +233,7 @@
     var clientName = subUrl.clientName;
     var fileName = subUrl.glbFileName;
     var ext = subUrl.ext;
-    console.log(subUrl.ink);
+    
 
     var dbRef = ref(realdb);
     var url;
@@ -242,19 +242,27 @@
     get(child(dbRef, "webAR/" + clientName + ext + fileName)).then((snapshot) => {
       if (snapshot.exists()) { 
         url = snapshot.val().FileUrl;
-        modelViewer.src = url;
-        var iosUrl = document.querySelector("model-viewer ios-src");
+
+        if(ext == "glb")
+        {
+          modelViewer.src = url;
+          
+        }
+        else
+        {
+          modelViewer.iosSrc = url;
+        }
       }
     });
 
-    var scales = document.querySelector("model-viewer ar-scale");
+
     if(scale =="true")
     {
-      scales = "fixed";
+      modelViewer.arScale = "fixed";
     }
     else
     {
-      scales = "auto";
+      modelViewer.arScale = "auto";
     }
 
     var marker = document.getElementById("marker");

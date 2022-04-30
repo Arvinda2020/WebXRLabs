@@ -94,7 +94,7 @@
       height: fit-content;
       bottom: 10px;
       align-content: center;
-      left: 50%;
+      right: 15px ;
 
     }
 
@@ -156,7 +156,7 @@
   </script>
   <model-viewer bounds="tight" ios-src="" ar-scale ="auto" 
     autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
-    environment-image="neutral" shadow-intensity="1">
+    environment-image="neutral" shadow-intensity="1" field-of-view ="6deg">
     <div class="progress-bar" slot="progress-bar">
       <div class="update-bar" style="width: 100%;
       height: 5px;
@@ -242,16 +242,8 @@
     get(child(dbRef, "webAR/" + clientName + ext + fileName)).then((snapshot) => {
       if (snapshot.exists()) { 
         url = snapshot.val().FileUrl;
-
-        if(ext == "/glb/")
-        {
           modelViewer.src = url;
-          
-        }
-        else
-        {
           modelViewer.iossrc = url;
-        }
       }
     });
 

@@ -72,12 +72,11 @@
                 var fileName = element.FileName;
                 var newFileName = fileName.split('.');
 
-
                 var clientName = element.ClientName;
                 var glbFileName = newFileName[0];
                 var ext = "/"+newFileName[1]+"/";
-                var scale = "true";
-                var ink = "Powerd by ThreedyAR";
+                var scale = localStorage.getItem("scale");
+                var ink = localStorage.getItem("ink");
                 //var ext = GetFileExt(element.fileName);
                 var data = {
                     scale,

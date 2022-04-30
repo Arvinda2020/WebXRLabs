@@ -115,7 +115,10 @@
       cursor: pointer;
     }
 
-
+    .marker{
+      font-size:smaller;
+      
+    }
 
     * {
       margin: 0;
@@ -161,7 +164,7 @@
       <div class="update-bar" style="width: 100%;
       height: 5px;
       "></div>
-      <label class="marker" id="marker"></label>
+      <label class="marker" id="marker" ></label>
     </div>
     <button slot="ar-button" class="arAnchor" id="ar-button">
       View in your space
@@ -261,6 +264,7 @@
     marker.textContent = waterMark;
     if (waterMark != "") {
       marker.style.display = "block";
+      
     }
     else {
       marker.style.display = "none";
@@ -295,6 +299,11 @@
       if (event.target == modal) {
         modal.style.display = "none";
       }
+
+      marker.onclick = Open;
+      function Open() {
+            window.open("https://www.threeedyar.com","_blank");
+        }
     }
   </script>
 

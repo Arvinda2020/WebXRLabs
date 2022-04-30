@@ -54,15 +54,24 @@
             deleteclientbtn = document.createElement("td");
 
             deleteclientbtn.onclick = function () {
-                const dbRef = ref(db);
-                remove(child(dbRef, "webAR/" + clientList[Sno - 1] + "/"))
-                    .then(() => {
-                        alert("client removed sucessfully");
 
-                    })
-                    .catch((error) => {
-                        alert("unsucessfull, error" + error);
-                    });
+                var answers = window.confirm("Are you sure you want to delete this file");
+                if (answers) {
+                    const dbRef = ref(db);
+                    remove(child(dbRef, "webAR/" + clientList[Sno - 1] + "/"))
+                        .then(() => {
+                            alert("client removed sucessfully");
+
+                        })
+                        .catch((error) => {
+                            alert("unsucessfull, error" + error);
+                        });
+                }
+                else
+                {
+                    alert("client not removed");
+                }
+
             }
 
             deleteclientbtn.id = "DeleteClient";
@@ -140,13 +149,14 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         // Firebase Realtime database
-        import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL }
+        import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject }
             from "https://www.gstatic.com/firebasejs/9.3.0/firebase-storage.js"
 
         // Firebase Realtime database
         import { getDatabase, ref, set, child, get, update, remove }
             from "https://www.gstatic.com/firebasejs/9.3.0/firebase-database.js";
         const db = getDatabase();
+        const storage = getStorage();
 
         //----GETTING ALL DATA----//
         function GetAllDataOnce() {

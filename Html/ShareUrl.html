@@ -29,8 +29,7 @@
         }
 
         .qrcode {
-            margin-top: -50px;
-
+            margin-top: -10px;
 
         }
 
@@ -62,8 +61,8 @@
     <label class="modelName" id="modelName"></label>
     <div class="qrcode" id="qrcode">
     </div>
-    <button>Download QR</button>
-    
+    <button id="qrdownload">Download QR</button>
+
 
     <!-- <pre>
        <div id="code">
@@ -78,6 +77,7 @@
     <script type="module">
 
         const qr = new QRCode(qrcode);
+        var qrbtn = document.getElementById("qrdownload");
         var params = new URLSearchParams(window.location.search);
         var subUrl = JSON.parse(params.get("subUrl"));
         var urlLink = new URLSearchParams();
@@ -96,15 +96,17 @@
 
 
         var modelName = document.getElementById("modelName");
-        modelName.textContent = "Model Name: " + subUrl.glbFileName.toString();
+        modelName.textContent = subUrl.glbFileName.toString();
 
-        function GenerateQRImage()
-        {
-            var QRImage = new Image();
-            QRImage.src = qr;
-            
+    
+        function downloadQR() {
+            var link = document.createElement('a');
+            link.download = 'QRimage.png';
+            link.href = document.getElementById('qrcode').toDataURL();
+            link.click();
         }
-
+        qrbtn.onclick = downloadQR;
+        
     </script>
 </body>
 

@@ -87,11 +87,41 @@
                 var fileName = element.FileName;
                 var newFileName = fileName.split('.');
 
-                var clientName = element.ClientName;
+
+
+                const dbRef = ref(db);
+
+                get(child(dbRef, "webAR/" + element.ClientName + "/" + newFileName[1] + "/" + newFileName[0])).
+                    then((snapshot) => {
+                        if (snapshot.exists()) {
+                            var scale = snapshot.val().arScale;
+                            var ink = snapshot.val().watermark;
+
+                            var clientName = element.ClientName;
+                            var glbFileName = newFileName[0];
+                            var ext = "/" + newFileName[1] + "/";
+
+
+                            var data = {
+                                scale,
+                                ink,
+                                clientName,
+                                glbFileName,
+                                ext
+                            };
+
+                            subUrl = JSON.stringify(data);
+
+
+                        }
+                    });
+
+                /*var clientName = element.ClientName;
                 var glbFileName = newFileName[0];
                 var ext = "/" + newFileName[1] + "/";
-                var scale = localStorage.getItem("scale");
-                var ink = localStorage.getItem("ink");
+                var scale
+                var ink;*/
+                
 
 
                 deleteclientbtn.onclick = function () {
@@ -107,8 +137,7 @@
                                 alert("unsucessfull, error" + error);
                             });
                     }
-                    else
-                    {
+                    else {
                         alert("file not deleted");
 
                     }
@@ -116,16 +145,7 @@
 
                 }
                 //var ext = GetFileExt(element.fileName);
-                var data = {
-                    scale,
-                    ink,
-                    clientName,
-                    glbFileName,
-                    ext
-                };
-
-                subUrl = JSON.stringify(data);
-
+                
 
                 td4.onclick = function () {
 

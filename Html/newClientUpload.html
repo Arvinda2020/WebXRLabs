@@ -95,7 +95,7 @@
             padding: auto;
 
         }
-        
+
         .ToggleButton label {
             display: flex;
             flex-direction: row;
@@ -379,10 +379,12 @@
             var clientName = ClientNameBox.value;
             var ext = extension;
 
-            set(ref(realdb, "webAR/" + clientName + "/" + ext + "/" + name), {
-                FileName: (name + "." + ext),
+            set(ref(realdb, "webAR/" + clientName + "/" + ext + "/" + glbFileName), {
+                FileName: (glbFileName + "." + ext),
                 ClientName: (clientName),
-                FileUrl: URL
+                FileUrl: URL,
+                arScale:scale,
+                watermark:ink
             });
 
         }
@@ -439,10 +441,9 @@
                 ext
             };
 
-            localStorage.setItem("scale",scale);
-            localStorage.setItem("ink",ink);
-           
-
+            
+            
+            
         }
        
         function PublishData()

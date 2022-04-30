@@ -46,6 +46,7 @@
     /* The Close Button */
     .close {
       color: #aaaaaa;
+      visibility:hidden;
       float: right;
       font-size: 28px;
       font-weight: bold;
@@ -140,6 +141,9 @@
       height: 100%;
       width: 100%;
     }
+    #viewer{
+      -poster-color :#fff;
+  }
   </style>
 </head>
 
@@ -157,9 +161,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
-  <model-viewer bounds="tight" ios-src="" ar-scale ="auto" 
+  <model-viewer id="viewer" bounds="tight" ios-src="" ar-scale ="auto" 
     autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
-    environment-image="neutral" shadow-intensity="1" field-of-view ="6deg" enable-pan>
+    environment-image="neutral" shadow-intensity="1" field-of-view ="6deg" poster = "../Images/SpinLoading.svg" enable-pan>
     <div class="progress-bar" slot="progress-bar" >
       <div class="update-bar" style="width: 100%;
       height: 5px;
@@ -246,7 +250,7 @@
       if (snapshot.exists()) { 
         url = snapshot.val().FileUrl;
           modelViewer.src = url;
-          modelViewer.iossrc = url;
+          modelViewer.iosSrc = url;
       }
     });
 

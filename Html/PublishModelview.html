@@ -249,8 +249,9 @@
     var modelViewer = document.querySelector("model-viewer");
     get(child(dbRef, "webAR/" + clientName + ext + fileName)).then((snapshot) => {
       if (snapshot.exists()) { 
-        url = snapshot.val().FileUrl;
+          url = snapshot.val().FileUrl;
           modelViewer.src = url;
+          console.log(url);
           modelViewer.iosSrc = url;
       }
     });

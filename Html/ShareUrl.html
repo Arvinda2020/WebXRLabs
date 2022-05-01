@@ -54,6 +54,15 @@
             -webkit-transition: 0.3s;
             -moz-transition: 0.3s;
         }
+
+        #url
+        {
+            overflow:hidden; 
+            display:block; 
+            position: absolute; 
+            height: 100%;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -63,7 +72,7 @@
     </div>
     <button id="qrdownload">Download QR</button>
 
-
+    <iframe id="url" frameborder="0"></iframe>
     <!-- <pre>
        <div id="code">
         &lt;script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"&gt; &lt;/script&gt;
@@ -84,7 +93,8 @@
         urlLink.append("subUrl", JSON.stringify(subUrl));
         var shareableUrl = "https://arvinda2020.github.io/WebXRLabs/Html/" + "PublishModelview.html?" + urlLink.toString();
         qr.makeCode(shareableUrl);
-
+        const url = document.getElementById("url");
+        url.src = shareableUrl;
 
         var params = new URLSearchParams(window.location.search);
         var subUrl = JSON.parse(params.get("subUrl"));
@@ -100,6 +110,8 @@
 
     
         function downloadQR() {
+            const qr = new QRCode(qrcode);
+            qr.makeCode(shareableUrl);
             var link = document.createElement('a');
             link.download = 'QRimage.png';
             link.href = document.getElementById('qrcode').toDataURL();

@@ -126,19 +126,19 @@
             background-color: #eee;
 
         }
-        
-        
-        .usdz,.glb 
-        {
+
+
+        .usdz,
+        .glb {
             display: inline-block;
-            position:absolute;
+            position: absolute;
             visibility: hidden;
             width: 15px;
-            height:min-content;
+            height: min-content;
             margin-top: -57.5px;
             margin-left: 450px;
         }
-        
+
 
         .WaterMark input:checked~.WaterMark {
             background-color: #00928b;
@@ -159,17 +159,17 @@
                 </label>
                 <label>
                     <h4>Glb File</h4>
-                    <img class= "glb"id="icong" src= "../Images/Checked.svg">
+                    <img class="glb" id="icong" src="../Images/Checked.svg">
                 </label>
                 <input type="file" id="glb_file" accept=".glb,.gltf">
                 <label>
                     <h4>Usdz File</h4>
                     <span>
-                        <img class ="usdz"id="iconu" src= "../Images/Checked.svg">
+                        <img class="usdz" id="iconu" src="../Images/Checked.svg">
                     </span>
                     <input type="file" id="usdz_file" accept=".usdz">
                 </label>
-               
+
             </article>
         </div>
         <div class="ToggleButton">
@@ -185,7 +185,7 @@
         <file id="myFile"><label id="upprogress"></label> <br><br>
             <progress id="upload" max="100" value="0"></progress>
             <button id="upbtn">Publish</button>
-            
+
     </div>
 
 
@@ -198,12 +198,12 @@
 
         const firebaseConfig = {
             apiKey: "AIzaSyB4KAmZ9NwlFE8l3Dw7pWaC_IdTXDes2yU",
-    authDomain: "webar-viewer.firebaseapp.com",
-    databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
-    projectId: "webar-viewer",
-    storageBucket: "webar-viewer.appspot.com",
-    messagingSenderId: "667103121502",
-    appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
+            authDomain: "webar-viewer.firebaseapp.com",
+            databaseURL: "https://webar-viewer-default-rtdb.firebaseio.com",
+            projectId: "webar-viewer",
+            storageBucket: "webar-viewer.appspot.com",
+            messagingSenderId: "667103121502",
+            appId: "1:667103121502:web:9d43ba6fc53e282359a4cf"
         };
 
         // Initialize Firebase
@@ -214,7 +214,7 @@
             from "https://www.gstatic.com/firebasejs/9.3.0/firebase-storage.js"
 
         // Firebase Realtime database
-        import { getDatabase, ref, set, child, get, update, remove }
+        import { getDatabase, ref, set, child, get, push, update, remove }
             from "https://www.gstatic.com/firebasejs/9.3.0/firebase-database.js";
         const realdb = getDatabase();
 
@@ -227,12 +227,12 @@
         var scaleFixed = document.getElementById('Scale');
         var icong = document.getElementById("icong");
         var iconu = document.getElementById("iconu");
-        var waterMarker = new URLSearchParams() ;
+        var waterMarker = new URLSearchParams();
         var data;
-
+        var downloadUrl;
         let files = [];
         var ink;
-        var scale;
+        let scale;
         var glbFileToUpload;
         var glbFileName;
         var usdzFileToUpload;
@@ -244,28 +244,26 @@
             var ext = GetFileExt(files[0]);
             glbFileToUpload = files[0];
             glbFileName = GetFileName(files[0]);
-            if(ClientNameBox.value == "")
-            {
+            if (ClientNameBox.value == "") {
                 alert("select/Enter the Clinet Name");
                 return;
             }
-            else
-            {
+            else {
                 UploadProcess(glbFileToUpload, glbFileName, ext);
             }
-           // icong.style.visibility = "visible";
+            // icong.style.visibility = "visible";
         };
 
 
         scaleFixed.onclick = function () {
             if (this.checked) {
                 scale = "true";
-                //subUrl.push(scale);
+               
                 
             }
             else {
                 scale = "false";
-                //subUrl.push(scale);
+                
                 
             }
         }
@@ -273,12 +271,11 @@
         waterMark.onclick = function () {
             if (this.checked) {
                 ink = "Powered by ThreedyAR";
-               // subUrl.push(ink);
+                
             }
             else {
                 ink = "";
-                //subUrl.push(ink);
-
+                
             }
         }
 
@@ -302,25 +299,21 @@
             UploadTask.on('state-changed', (snapshot) => {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 uploadBar.value = progress;
-                
-                if(uploadBar.value == 100)
-                {
-                    
+
+                if (uploadBar.value == 100) {
+
                     uploadBar.style.visibility = "hidden";
-                    if(ext == "glb")
-                    {
+                    if (ext == "glb") {
                         icong.style.visibility = "visible";
                     }
-                    else
-                    {
+                    else {
                         iconu.style.visibility = "visible";
                     }
                 }
-                else
-                {
+                else {
                     uploadBar.style.visibility = "visible";
 
-                } 
+                }
             },
                 (error) => {
                     alert("error: File not uploaded!");
@@ -328,11 +321,13 @@
                 () => {
                     getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
                         SaveURLtoRealtimeDB(downloadURL, fileName, extension);
-                        
                     });
                 }
             );
         }
+
+
+
 
         usdz.onchange = e => {
             files = e.target.files;
@@ -340,17 +335,15 @@
             usdzFileToUpload = files[0];
             usdzFileName = GetFileName(files[0]);
 
-            if(ClientNameBox.value == "")
-            {
+            if (ClientNameBox.value == "") {
                 alert("select/Enter the Clinet Name");
                 return;
             }
-            else
-            {
+            else {
                 UploadProcess(usdzFileToUpload, usdzFileName, ext);
             }
 
-            
+
             //iconu.style.visibility = "visible";
 
         };
@@ -371,7 +364,6 @@
             sessionStorage.setItem('ModelUrl', JSON.stringify(url));
         }
 
-
         //----Functions for REALTIME DATABASE-----//
 
         function SaveURLtoRealtimeDB(URL, filename, extension) {
@@ -379,15 +371,15 @@
             var clientName = ClientNameBox.value;
             var ext = extension;
 
-            set(ref(realdb, "webAR/" + clientName + "/" + ext + "/" + glbFileName), {
-                FileName: (glbFileName + "." + ext),
+            set(ref(realdb, "webAR/" + clientName + "/" + ext + "/" + filename), {
+                FileName: (filename + "." + ext),
                 ClientName: (clientName),
                 FileUrl: URL,
-                arScale:scale,
-                watermark:ink
-            });
 
+            });
+            
         }
+
 
         function GetUrlfromRealtimeDB() {
             var name = namebox.value;
@@ -411,8 +403,7 @@
         publish.onclick = PublishData;
 
 
-        function SetUrlData()
-        {
+        function SetUrlData() {
 
             var filename = glbFileName;
             var clientName = ClientNameBox.value;
@@ -420,19 +411,16 @@
             var android = /Android/i.test(navigator.userAgent);
             var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             var ext;
-            if(android)
-            {
+            if (android) {
                 ext = "/glb/";
             }
-            else if(iPhone)
-            {
-                ext ="/usdz/";
+            else if (iPhone) {
+                ext = "/usdz/";
             }
-            else
-            {
-                ext ="/glb/";
+            else {
+                ext = "/glb/";
             }
-
+            
             data = {
                 scale,
                 ink,
@@ -441,36 +429,53 @@
                 ext
             };
 
+            if(scale == undefined)
+            {
+                scale = "false";
+            }
+            else
+            {
+                scale = "true";
+            }
+
+            if(ink == undefined)
+            {
+                ink = "";
+            }
+            else
+            {
+                ink="Powered by ThreedyAR";
+            }
             
-            
-            
+            update(ref(realdb,"webAR/" + clientName + "/" + ext + "/" + glbFileName),({
+                arScale:scale,
+                watermark:ink
+            }));
+
+
         }
-       
-        function PublishData()
-        {
+
+        function PublishData() {
             var filename = glbFileName;
             var clientName = ClientNameBox.value;
 
             var android = /Android/i.test(navigator.userAgent);
             var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             var ext;
-            if(android)
-            {
+            if (android) {
                 ext = "/glb/";
             }
-            else if(iPhone)
-            {
-                ext ="/usdz/";
+            else if (iPhone) {
+                ext = "/usdz/";
             }
-            else
-            {
-                ext ="/glb/";
+            else {
+                ext = "/glb/";
             }
             SetUrlData();
             var subUrl = JSON.stringify(data);
-            
+
             var url = new URLSearchParams();
-            url.append("subUrl",subUrl);
+            url.append("subUrl", subUrl);
 
 
             // var fileName = new URLSearchParams();
@@ -480,7 +485,7 @@
             // var mode = new URLSearchParams();
             // mode.append("ext",ext);
             //var fetchUrl = "PublishModelview.html?" + client.toString()+fileName.toString()+mode.toString()+waterMarker.toString();
-            var fetchUrl = "PublishModelview.html?"+url.toString(); 
+            var fetchUrl = "PublishModelview.html?" + url.toString();
             location.href = fetchUrl;
 
         }
@@ -492,7 +497,7 @@
         //         var name = glbFileName;
         //         var clientName = ClientNameBox.value;
         //         var dbRef = ref(realdb);
-                
+
         //         get(child(dbRef, "webAR/" + clientName + "/glb/" + glbFileName)).then((snapshot) => {
         //             if (snapshot.exists()) 
         //             {
@@ -507,7 +512,7 @@
         //             }
         //         });
         //     }
-            
+
         // }
 
 

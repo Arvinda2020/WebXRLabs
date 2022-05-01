@@ -63,6 +63,10 @@
             height: 100%;
             width: 100%;
         }
+        #qrCodeImg
+        {
+            visibility: hidden;
+        }
     </style>
 </head>
 
@@ -70,14 +74,13 @@
     <label class="modelName" id="modelName"></label>
     <div class="qrcode" id="qrcode">
     </div>
+    <img id="qrCodeImg">
     <pre>
        <div id="code">
-           <!--&lt;script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"&gt; &lt;/script&gt;
-            &lt;iframe id="url"  frameborder="0"&gt; &lt;/iframe&gt;
-        &lt;model-viewer bounds="tight" src="" ios-src="" 
-            ar-scale ="auto" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
-            environment-image="neutral" shadow-intensity="1"&gt;
-            &lt;/model-viewer&gt;-->
+        &lt;iframe id="url" src="https://arvinda2020.github.io/WebXRLabs/Html/PublishModelview.html?"+"urlLink.toString()" frameborder="0"
+            style="overflow:hidden; 
+            display:block; position: absolute; height: 100%; width: 100%&gt; 
+         &lt;/iframe&gt;
        </div>
    </pre>
    <button id="qrdownload">Download QR</button>
@@ -85,6 +88,8 @@
     <script type="module">
 
         const qr = new QRCode(qrcode);
+        var image = document.getElementById("qrCodeImg");
+        var ifram = document.getElementById("")
         var qrbtn = document.getElementById("qrdownload");
         var params = new URLSearchParams(window.location.search);
         var subUrl = JSON.parse(params.get("subUrl"));
@@ -92,6 +97,7 @@
         urlLink.append("subUrl", JSON.stringify(subUrl));
         var shareableUrl = "https://arvinda2020.github.io/WebXRLabs/Html/" + "PublishModelview.html?" + urlLink.toString();
         qr.makeCode(shareableUrl);
+        image.scr = qr.makeCode(shareableUrl);
 
         var params = new URLSearchParams(window.location.search);
         var subUrl = JSON.parse(params.get("subUrl"));
@@ -108,8 +114,7 @@
     
         function downloadQR() {
             var link = document.createElement('a');
-            link.download = 'QRimage.png';
-            link.href = qr.makeCode(shareableUrl);
+            link.download = "QRcode.png";
             link.click();
         }
         qrbtn.onclick = downloadQR;

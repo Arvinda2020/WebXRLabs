@@ -93,6 +93,7 @@
         urlLink.append("subUrl", JSON.stringify(subUrl));
         var shareableUrl = "https://arvinda2020.github.io/WebXRLabs/Html/" + "PublishModelview.html?" + urlLink.toString();
         qr.makeCode(shareableUrl);
+        
         const url = document.getElementById("url");
         url.src = shareableUrl;
 

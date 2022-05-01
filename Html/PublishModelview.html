@@ -151,9 +151,9 @@
   <!-- The Modal -->
   <div id="myModal" class="modal">
     <!-- Modal content -->
-    
+    <span class="close">&times;</span>
     <div class="modal-content">
-      <span class="close">&times;</span>
+      
       <div class="qrcode" id="qrcode">
       </div>
     </div>
@@ -162,7 +162,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
-  <model-viewer id="viewer" bounds="tight" ios-src="" ar-scale ="auto" 
+  <model-viewer id="viewer" bounds="tight"  ar-scale ="auto" 
     autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1" field-of-view ="6deg" poster = "../Images/Spin.gif" enable-pan>
     <div class="progress-bar" slot="progress-bar" >
@@ -251,8 +251,9 @@
       if (snapshot.exists()) { 
           url = snapshot.val().FileUrl;
           modelViewer.src = url;
-          console.log(url);
+          
           modelViewer.iosSrc = url;
+          console.log(url);
       }
     });
 

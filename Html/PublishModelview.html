@@ -46,7 +46,7 @@
     /* The Close Button */
     .close {
       color: #aaaaaa;
-      visibility:hidden;
+      visibility: hidden;
       float: right;
       font-size: 28px;
       font-weight: bold;
@@ -56,7 +56,7 @@
       display: grid;
       width: fit-content;
       height: fit-content;
-      
+
       margin-top: 20px;
     }
 
@@ -97,7 +97,7 @@
       height: fit-content;
       bottom: 10px;
       align-content: center;
-      right: 15px ;
+      right: 15px;
 
     }
 
@@ -118,9 +118,9 @@
       cursor: pointer;
     }
 
-    .marker{
-      font-size:smaller;
-      
+    .marker {
+      font-size: smaller;
+
     }
 
     * {
@@ -144,8 +144,7 @@
       width: 100%;
     }
 
-    .prompt-bg
-    {
+    .prompt-bg {
       align-items: center;
       justify-content: center;
       display: flex;
@@ -154,11 +153,9 @@
       padding: 2px;
     }
 
-    model-viewer::part(default-progress-bar)
-    {
+    model-viewer::part(default-progress-bar) {
       background-color: #00928b;
     }
-   
   </style>
 </head>
 
@@ -166,7 +163,7 @@
   <!-- The Modal -->
   <div id="myModal" class="modal">
     <!-- Modal content -->
-    
+
     <span class="close">&times;</span>
     <div class="modal-content">
       <p> To view in Augmented Reality,<br> scan this QR code on your mobile device.</p>
@@ -178,17 +175,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
-  <model-viewer bounds="tight"  autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
-  environment-image="neutral" shadow-intensity="1" field-of-view ="6deg" 
-    poster = "../Images/Spin.gif" enable-pan>
-    <label class="marker" id="marker" ></label>
+  <model-viewer bounds="tight" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
+    environment-image="neutral" shadow-intensity="1" field-of-view="6deg" poster="../Images/Spin.gif" enable-pan>
+    <label class="marker" id="marker"></label>
     </div>
     <button slot="ar-button" class="arAnchor" id="ar-button">
       View in your space
     </button>
     <button class="QrBtn" id="QrButton">View in your space</button>
     <div slot="interaction-prompt" id="interaction-prompt-container" class="prompt-bg">
-      <img id="prompt-icon" src="../Images/xr-prompt.png" alt="Prompt" width="70"/>
+      <img id="prompt-icon" src="../Images/xr-prompt.png" alt="Prompt" width="70" />
     </div>
   </model-viewer>
 
@@ -249,46 +245,42 @@
 
     var params = new URLSearchParams(window.location.search);
     var subUrl = JSON.parse(params.get("subUrl"));
-    
+
     var shareAbleUrl = window.location.href + subUrl;
     var scale = subUrl.scale;
     var waterMark = subUrl.ink;
     var clientName = subUrl.clientName;
     var fileName = subUrl.glbFileName;
+    var usdzfileName = subUrl.usdzFileName;
     var ext = subUrl.ext;
-    
+
 
     var dbRef = ref(realdb);
     var url;
 
     var modelViewer = document.querySelector("model-viewer");
     get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
-      if (snapshot.exists()) { 
-          url = snapshot.val().FileUrl;
-          modelViewer.src = url;
+      if (snapshot.exists()) {
+        url = snapshot.val().FileUrl;
+        modelViewer.src = url;
       }
     });
-    get(child(dbRef, "webAR/" + clientName + "/usdz/" + fileName)).then((snapshot) => {
-      if (snapshot.exists()) { 
+    console.log(usdzfileName);
+    if (usdzfileName != "") {
+      get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
+        if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
           console.log(modelViewer.iosSrc);
-      }
-      else
-      {
-        
-        alert("unable to fetch the model");
-        return;
-      }
-    });
+        }
+      });
+    }
 
 
-    if(scale =="true")
-    {
+    if (scale == "true") {
       modelViewer.arScale = "fixed";
     }
-    else
-    {
+    else {
       modelViewer.arScale = "auto";
     }
 
@@ -296,7 +288,7 @@
     marker.textContent = waterMark;
     if (waterMark != "") {
       marker.style.display = "block";
-      
+
     }
     else {
       marker.style.display = "none";
@@ -334,8 +326,8 @@
 
       marker.onclick = Open;
       function Open() {
-            window.open("https://www.threeedyar.com","_blank");
-        }
+        window.open("https://www.threeedyar.com", "_blank");
+      }
     }
   </script>
 

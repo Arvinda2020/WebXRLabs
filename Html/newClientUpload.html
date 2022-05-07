@@ -403,7 +403,8 @@
 
         function SetUrlData() {
 
-            var filename = glbFileName;
+            var GLBfilename = glbFileName;
+            var USDZfilename = usdzFileName;
             var clientName = ClientNameBox.value;
 
             var android = /Android/i.test(navigator.userAgent);
@@ -424,9 +425,11 @@
                 ink,
                 clientName,
                 glbFileName,
+                usdzFileName,
                 ext
             };
 
+            
             if(scale == undefined)
             {
                 scale = "false";
@@ -449,7 +452,7 @@
                 arScale:scale,
                 watermark:ink
             }));
-            update(ref(realdb,"webAR/" + clientName + "/" + "usdz" + "/" + glbFileName),({
+            update(ref(realdb,"webAR/" + clientName + "/" + "usdz" + "/" + usdzFileName),({
                 arScale:scale,
                 watermark:ink
             }));

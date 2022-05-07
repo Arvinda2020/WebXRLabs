@@ -471,48 +471,12 @@
             }
             SetUrlData();
             var subUrl = JSON.stringify(data);
-
             var url = new URLSearchParams();
             url.append("subUrl", subUrl);
-
-
-            // var fileName = new URLSearchParams();
-            // fileName.append("filename",glbFileName);
-            // var client = new URLSearchParams();
-            // client.append("clientName",ClientNameBox.value);
-            // var mode = new URLSearchParams();
-            // mode.append("ext",ext);
-            //var fetchUrl = "PublishModelview.html?" + client.toString()+fileName.toString()+mode.toString()+waterMarker.toString();
             var fetchUrl = "PublishModelview.html?" + url.toString();
             location.href = fetchUrl;
 
         }
-
-
-        // function PublishModel() {
-        //     var isMobile = /iPhone|ipad|iPod|Android/i.test(navigator.userAgent);
-        //     if (!isMobile) {
-        //         var name = glbFileName;
-        //         var clientName = ClientNameBox.value;
-        //         var dbRef = ref(realdb);
-
-        //         get(child(dbRef, "webAR/" + clientName + "/glb/" + glbFileName)).then((snapshot) => {
-        //             if (snapshot.exists()) 
-        //             {
-        //                 var myFile;
-        //                 myFile.src = snapshot.val().FileUrl;
-        //                 var url = myFile.scr;
-
-        //                 var params = new URLSearchParams();
-        //                 params.append("url", myFile.src);      
-        //                 var fetchUrl = "PublishModelview.html?" + params.toString();
-        //                 location.href = fetchUrl;
-        //             }
-        //         });
-        //     }
-
-        // }
-
 
         //choose client from dropdown
         function GetAllDataOnce() {

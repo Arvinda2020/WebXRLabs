@@ -262,10 +262,23 @@
     var url;
 
     var modelViewer = document.querySelector("model-viewer");
-    get(child(dbRef, "webAR/" + clientName + ext + fileName)).then((snapshot) => {
+    get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
       if (snapshot.exists()) { 
           url = snapshot.val().FileUrl;
           modelViewer.src = url;
+      }
+    });
+    get(child(dbRef, "webAR/" + clientName + "/usdz/" + fileName)).then((snapshot) => {
+      if (snapshot.exists()) { 
+          url = snapshot.val().FileUrl;
+          modelViewer.iosSrc = url;
+          console.log(modelViewer.iosSrc);
+      }
+      else
+      {
+        
+        alert("unable to fetch the model");
+        return;
       }
     });
 

@@ -445,7 +445,11 @@
                 ink="Powered by ThreedyAR";
             }
             
-            update(ref(realdb,"webAR/" + clientName + "/" + ext + "/" + glbFileName),({
+            update(ref(realdb,"webAR/" + clientName + "/" + "glb" + "/" + glbFileName),({
+                arScale:scale,
+                watermark:ink
+            }));
+            update(ref(realdb,"webAR/" + clientName + "/" + "usdz" + "/" + glbFileName),({
                 arScale:scale,
                 watermark:ink
             }));

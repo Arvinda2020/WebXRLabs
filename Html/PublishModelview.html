@@ -263,12 +263,18 @@
     var url;
 
     var modelViewer = document.querySelector("model-viewer");
-    get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
+    var android = /Android/i.test(navigator.userAgent);
+    if(android)
+    {
+      get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
       if (snapshot.exists()) {
         url = snapshot.val().FileUrl;
         modelViewer.src = url;
+        console.log("fetching from andriod");
       }
     });
+    }
+    
     var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     if(iPhone)
     {
@@ -276,6 +282,7 @@
         if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
+          console.log("fetching from iphone");
           
         }
       });

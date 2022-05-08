@@ -179,7 +179,7 @@
 <script nomodule
   src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
 </script>
-  <model-viewer bounds="tight" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
+  <model-viewer bounds="tight" autoplay  ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1" field-of-view="6deg" poster="../Images/Spin.gif" enable-pan>
     <label class="marker" id="marker"></label>
     </div>
@@ -264,6 +264,13 @@
 
     var modelViewer = document.querySelector("model-viewer");
     var android = /Android/i.test(navigator.userAgent);
+    get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
+      if (snapshot.exists()) {
+        url = snapshot.val().FileUrl;
+        modelViewer.src = url;
+        console.log("fetching from andriod");
+      }
+    });
     if(android)
     {
       get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {

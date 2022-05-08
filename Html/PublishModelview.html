@@ -269,16 +269,14 @@
         modelViewer.src = url;
       }
     });
-    console.log(usdzfileName);
-    if (usdzfileName != "") {
-      get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
+    get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
         if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
           
         }
       });
-    }
+   
 
 
     if (scale == "true") {

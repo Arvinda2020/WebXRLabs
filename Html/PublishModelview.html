@@ -269,13 +269,18 @@
         modelViewer.src = url;
       }
     });
-    get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
+    var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if(iPhone)
+    {
+      get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
         if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
           
         }
       });
+   
+    }
    
 
 

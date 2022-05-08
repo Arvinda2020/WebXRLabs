@@ -173,7 +173,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@1.2.1/dist/model-viewer.min.js">
   </script>
   <model-viewer bounds="tight" autoplay ar ar-modes="webxr scene-viewer quick-look" camera-controls
     environment-image="neutral" shadow-intensity="1" field-of-view="6deg" poster="../Images/Spin.gif" enable-pan>
@@ -271,7 +271,7 @@
         if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
-          console.log(modelViewer.iosSrc);
+          
         }
       });
     }

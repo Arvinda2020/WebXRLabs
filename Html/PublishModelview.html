@@ -173,14 +173,12 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script type="module"
-  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
-</script>
-<script nomodule
-  src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
-</script>
-  <model-viewer bounds="tight" autoplay ar  camera-controls
-    environment-image="neutral" shadow-intensity="1" field-of-view="6deg" poster="../Images/Spin.gif" enable-pan>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
+  </script>
+  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+  </script>
+  <model-viewer bounds="tight" autoplay ar camera-controls environment-image="neutral" shadow-intensity="1"
+    field-of-view="6deg" poster="../Images/Spin.gif" enable-pan>
     <label class="marker" id="marker"></label>
     </div>
     <button slot="ar-button" class="arAnchor" id="ar-button">
@@ -264,38 +262,39 @@
 
     var modelViewer = document.querySelector("model-viewer");
     var android = /Android/i.test(navigator.userAgent);
-    get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
-      if (snapshot.exists()) {
-        url = snapshot.val().FileUrl;
-        modelViewer.src = url;
-        console.log("fetching from andriod");
-      }
-    });
-    if(android)
-    {
+    if (!android && !iPhone) {
       get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
-      if (snapshot.exists()) {
-        url = snapshot.val().FileUrl;
-        modelViewer.src = url;
-        console.log("fetching from andriod");
-      }
-    });
+        if (snapshot.exists()) {
+          url = snapshot.val().FileUrl;
+          modelViewer.src = url;
+          console.log("desktop");
+        }
+      });
     }
-    
+
+    if (android) {
+      get(child(dbRef, "webAR/" + clientName + "/glb/" + fileName)).then((snapshot) => {
+        if (snapshot.exists()) {
+          url = snapshot.val().FileUrl;
+          modelViewer.src = url;
+          console.log("fetching from andriod");
+        }
+      });
+    }
+
     var iPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if(iPhone)
-    {
+    if (iPhone) {
       get(child(dbRef, "webAR/" + clientName + "/usdz/" + usdzfileName)).then((snapshot) => {
         if (snapshot.exists()) {
           url = snapshot.val().FileUrl;
           modelViewer.iosSrc = url;
           console.log("fetching from iphone");
-          
+
         }
       });
-   
+
     }
-   
+
 
 
     if (scale == "true") {
